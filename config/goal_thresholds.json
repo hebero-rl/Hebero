@@ -1,0 +1,78 @@
+{
+  "$schema_note": [
+    "Goal-evaluation tables shared by the LIBERO success predicates and the",
+    "metaworld-style dense reward. Suite-independent: keyed by asset, not by task.",
+    "",
+    "articulation_joint_targets: per (asset, operation), the joint-position window",
+    "  [low, high] that counts as the operation being satisfied, and the joint-name",
+    "  pattern to match. Ranges are radians for revolute joints and metres for",
+    "  prismatic ones, following each asset's own joint definition.",
+    "",
+    "wooden_cabinet: the cabinet is layered, so its joint is chosen by the goal's",
+    "  'layer' and its window by the operation, rather than by a single (asset,",
+    "  operation) key.",
+    "",
+    "orientation_offsets: positional offset [m] applied to a relationship goal's",
+    "  target when the goal names a side ('put X to the right of Y').  These are",
+    "  WORLD-frame (table-frame) offsets, as in the source BDDL -- unlike a goal's",
+    "  'target_offset', which is asset-local and rotates with the target.",
+    "  Signs and magnitudes are read off the source BDDL goal regions, which are",
+    "  in the same table frame as the harvested init regions (verified: the",
+    "  harvested pose_range values reproduce the BDDL ranges).",
+    "    right: LIVING_ROOM_SCENE6 plate_right_region spans y in [0.05, 0.15]",
+    "      about a plate at y ~ 0 -> +y, centre +0.10.  (plate_left_region is the",
+    "      mirror, y in [-0.15, -0.05].)",
+    "    front: push_the_plate_to_the_front_of_the_stove stove_front_region is",
+    "      centred at x = -0.05 while the stove spawns at x = -0.404 and the",
+    "      burner-plate target_offset already carries +0.15 -> +0.204 from there.",
+    "  These were both NEGATED before 2026-08-17, so 'right of the plate' scored",
+    "  the LEFT side and 'front of the stove' a point 0.40 m past the stove;",
+    "  libero_10 #6 and libero_goal #5 could not be satisfied at all.",
+
+    "Joint windows are bounded by each asset's USD limits.  The cabinet drawers",
+    "  travel [-0.175, 0], so an 'open' window of [-0.16, -0.14] (the old white",
+    "  cabinet value) scored a fully-pulled-out drawer as NOT open; both cabinets",
+    "  now share [-0.175, -0.12] since they are the same USD.  The microwave door",
+    "  and stove knob are authored with NO joint limits ((-inf, inf)) -- widening",
+    "  their windows only mitigates that; the assets should get real limits.",
+    "",
+    "These mirror the playground rl_utils tables",
+    "(_articulation_operation_goal_satisfied_by_group). They were Python dicts in",
+    "the reward module until they moved here; when comparing against playground,",
+    "diff these values against that function rather than against our source."
+  ],
+
+  "articulation_joint_targets": {
+    "flat_stove_1": {
+      "turnon":  { "joint": "button", "low": 0.5, "high": 2.1 },
+      "turnoff": { "joint": "button", "low": -0.05, "high": 0.05 }
+    },
+    "white_cabinet_1": {
+      "open":  { "joint": "bottom_level", "low": -0.175, "high": -0.12 },
+      "close": { "joint": "bottom_level", "low": -0.02, "high": 0.02 }
+    },
+    "microwave_1": {
+      "open":  { "joint": "microjoint", "low": -2.2, "high": -1.0 },
+      "close": { "joint": "microjoint", "low": -0.1, "high": 0.1 }
+    }
+  },
+
+  "wooden_cabinet": {
+    "asset": "wooden_cabinet_1",
+    "layer_joint": {
+      "top": "top_level",
+      "middle": "middle_level",
+      "bottom": "bottom_level"
+    },
+    "operation_range": {
+      "open":  { "low": -0.175, "high": -0.12 },
+      "close": { "low": -0.02, "high": 0.02 }
+    }
+  },
+
+  "orientation_offsets": {
+    "right": [0.0, 0.10, 0.0],
+    "left":  [0.0, -0.10, 0.0],
+    "front": [0.204, 0.008, 0.0]
+  }
+}

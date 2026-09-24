@@ -1,0 +1,59 @@
+# Copyright (c) 2022-2026, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
+# All rights reserved.
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+# Python bytecode / caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Build / packaging artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+.installed.cfg
+
+# Test / type / lint caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environments
+.venv/
+venv/
+env/
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Local benchmark logs
+/tmp/libero_profile_*.log
+*.log
+
+# Training / eval run outputs
+logs/
+
+# local checkout symlinks (data/checkpoint access on the workstation)
+/_*
+
+# paper drafts, reviews and figure/video scratch — local only
+.paper/
+
+# Local asset copies are not tracked in git.
+assets/
+
+# Hebero USD assets + demos (408 MB), pulled from Hugging Face — see README §2.3.
+datasets/
+# local virtualenv symlink and Kit UI state
+.venv
+imgui.ini
+
+docs/figures/
+.benchmarks
