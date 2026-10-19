@@ -1,0 +1,7 @@
+.git
+logs
+figures
+_*
+**/__pycache__
+**/*.pyc
+outputs

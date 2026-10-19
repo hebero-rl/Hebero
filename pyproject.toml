@@ -1,0 +1,35 @@
+# Copyright (c) 2022-2026, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
+# All rights reserved.
+#
+# SPDX-License-Identifier: BSD-3-Clause
+
+# Hebero is a standalone extract of the LIBERO multi-task environments
+# from IsaacLab. It is NOT a self-contained installable: it requires a working
+# IsaacLab install (isaaclab, isaaclab_tasks, isaaclab_newton, isaaclab_physx),
+# which is distributed via Isaac Sim / IsaacLab and cannot be resolved from PyPI.
+# Use it by adding ``source/isaaclab_contrib`` to PYTHONPATH inside an IsaacLab
+# environment, or install it editable there:
+#
+#     pip install -e .
+#
+# See README.md for details.
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hebero"
+version = "0.1.0"
+description = "Hebero: standalone extract of the LIBERO multi-task manipulation environments for IsaacLab."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "BSD-3-Clause" }
+# NOTE: the isaaclab framework packages are intentionally omitted from
+# `dependencies` because they are not distributed on PyPI. Install IsaacLab
+# separately (see https://github.com/isaac-sim/IsaacLab) before using this repo.
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["source/isaaclab_contrib"]
+include = ["isaaclab_contrib*"]
